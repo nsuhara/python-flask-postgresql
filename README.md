@@ -19,6 +19,7 @@
     - [ロール(ユーザ)の作成](#%e3%83%ad%e3%83%bc%e3%83%ab%e3%83%a6%e3%83%bc%e3%82%b6%e3%81%ae%e4%bd%9c%e6%88%90)
     - [データベースの作成](#%e3%83%87%e3%83%bc%e3%82%bf%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e4%bd%9c%e6%88%90)
     - [データベースのマイグレーション](#%e3%83%87%e3%83%bc%e3%82%bf%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%9e%e3%82%a4%e3%82%b0%e3%83%ac%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3)
+    - [レコードの削除](#%e3%83%ac%e3%82%b3%e3%83%bc%e3%83%89%e3%81%ae%e5%89%8a%e9%99%a4)
 
 ## はじめに
 
@@ -220,7 +221,7 @@
     ~$ brew services list
     ```
 
-    ```example.sh
+    ```result.sh
     Name       Status  User    Plist
     postgresql started nsuhara /Users/nsuhara/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
     ```
@@ -367,4 +368,20 @@
     ~$ flask db init
     ~$ flask db migrate
     ~$ flask db upgrade
+    ```
+
+### レコードの削除
+
+1. データベースに接続する。
+
+2. レコードを削除する。
+
+    ```procedure.sh
+    postgresql=# delete from <table_name>;
+    ```
+
+3. 自動採番を初期化する。
+
+    ```procedure.sh
+    postgresql=# select setval ('<table_name>_id_seq', 1, false);
     ```
